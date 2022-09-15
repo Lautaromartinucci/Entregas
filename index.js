@@ -6,15 +6,18 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 
 
-
+//Inicio
 app.get('/', (req, res) => {
     res.send('Esta es la pagina de inicio')
 })
 
-app.get('/productos', (req, res) => {
-    let response = products
 
-/*     if(req.query.title){
+//todos los productos
+app.get('/api/productos', (req, res) => {
+    let response = products
+    
+    //prueba de filtros
+    if(req.query.title){
         const newProducts = products.filter(product => {
             return product.title == req.query.title;
         })
@@ -28,12 +31,14 @@ app.get('/productos', (req, res) => {
         })
 
         response = newProducts
-    } */
+    }
 
     res.json(response);
 })
 
-/* app.post('/productos', (req, res) => {
+
+//producto segun id
+app.post('/api/productos', (req, res) => {
     const ids = products.map(object => {
         return object.id;
     });
@@ -45,14 +50,18 @@ app.get('/productos', (req, res) => {
     res.json(products)
 })
 
-app.delete('/productos/:id', (req, res) => {
+
+//elimina producto segun id
+app.delete('/api/productos/:id', (req, res) => {
     const newProducts = products.filter(product => {
         return product.id != req.params.id;
     })
     res.json(newProducts);
 })
 
-app.put('/productos/:id', (req, res) => {
+
+//actualiza un producto segun id
+app.put('/api/productos/:id', (req, res) => {
     const product = products.filter(product => {
         req.query.title ? product.title = req.query.title : null
         req.query.price ? product.price = req.query.price : null
@@ -60,8 +69,10 @@ app.put('/productos/:id', (req, res) => {
     })
 
     res.json(product);
-}) */
+})
 
+
+//producto random
 app.get('/productoRandom', (req, res) => {
     console.log (products.length)
     console.log (Math.random()*products.length)
